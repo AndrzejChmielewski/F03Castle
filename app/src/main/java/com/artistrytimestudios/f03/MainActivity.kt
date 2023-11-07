@@ -1,23 +1,17 @@
 package com.artistrytimestudios.f03
 
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Button
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.*
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import com.artistrytimestudios.f03.ui.theme.F03CastleTheme
 
 class MainActivity : ComponentActivity() {
@@ -25,12 +19,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             F03CastleTheme {
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
-                ) {
-                    MainScreen()
-                }
+                MainScreen()
             }
         }
     }
@@ -38,33 +27,59 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun MainScreen() {
-    Column(modifier = Modifier.padding(16.dp)) {
-        Button(onClick = { openWebPage("https://tinyurl.com/4p9rcmww") }) {
-            Text("Installation Guide")
-        }
-        Spacer(modifier = Modifier.height(8.dp))
-        Button(onClick = { openWebPage("https://play.google.com/store/apps/dev?id=4887226526184134400") }) {
-            Text("Install Now")
-        }
-        Spacer(modifier = Modifier.height(8.dp))
-        Button(onClick = { openWebPage("https://play.google.com/store/apps/details?id=com.watchfacestudio.militaryf01") }) {
-            Text("Rate App")
+    Surface(
+        modifier = Modifier.fillMaxSize(),
+        color = MaterialTheme.colorScheme.background
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(16.dp),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Text(
+                text = "This watch face companion app was created for you to easily find and download watch faces for your watch device. Wear OS API 28+",
+                style = MaterialTheme.typography.bodyLarge,
+                textAlign = TextAlign.Center
+            )
+            Spacer(modifier = Modifier.height(16.dp))
+            Button(onClick = { /* TODO: Handle click here */ }) {
+                Text("Google Play Store")
+            }
+            Spacer(modifier = Modifier.height(8.dp))
+            OutlinedButton(onClick = { /* TODO: Handle click here */ }) {
+                Text("Rate App")
+            }
+            Spacer(modifier = Modifier.height(24.dp))
+            Text(
+                text = "NOTE: If you bought the app by mistake, need assistance, or have any questions",
+                style = MaterialTheme.typography.bodySmall,
+                textAlign = TextAlign.Center
+            )
+            Spacer(modifier = Modifier.height(8.dp))
+            Text(
+                text = "Please contact us at: ArtistryTimeStudios@gmail.com",
+                style = MaterialTheme.typography.bodySmall,
+                modifier = Modifier.clickable { /* TODO: Add email intent */ },
+                textAlign = TextAlign.Center
+            )
+            Spacer(modifier = Modifier.height(16.dp))
+            Divider()
+            Spacer(modifier = Modifier.height(16.dp))
+            Text(
+                text = "Installation Guide",
+                style = MaterialTheme.typography.bodyLarge,
+                modifier = Modifier.clickable { /* TODO: Handle click here */ },
+                textAlign = TextAlign.Center
+            )
         }
     }
 }
 
-fun openWebPage(s: String) {
-
-}
-
-private fun ComponentActivity.openWebPage(url: String) {
-    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
-    startActivity(intent)
-}
-
 @Preview(showBackground = true)
 @Composable
-fun DefaultPreview() {
+fun MainScreenPreview() {
     F03CastleTheme {
         MainScreen()
     }

@@ -5,12 +5,12 @@ plugins {
 
 android {
     namespace = "com.artistrytimestudios.f03"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "com.artistrytimestudios.f03"
         minSdk = 28
-        targetSdk = 33
+        targetSdk = 34
         versionCode = 2
         versionName = "1.0.0"
 
