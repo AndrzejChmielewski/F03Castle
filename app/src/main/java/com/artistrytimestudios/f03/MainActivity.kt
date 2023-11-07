@@ -13,6 +13,11 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.artistrytimestudios.f03.ui.theme.F03CastleTheme
+import androidx.compose.ui.platform.LocalUriHandler
+import android.content.Intent
+import android.net.Uri
+import androidx.compose.ui.platform.LocalContext
+
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,6 +32,8 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun MainScreen() {
+    val context = LocalContext.current
+    val uriHandler = LocalUriHandler.current
     Surface(
         modifier = Modifier.fillMaxSize(),
         color = MaterialTheme.colorScheme.background
@@ -44,11 +51,15 @@ fun MainScreen() {
                 textAlign = TextAlign.Center
             )
             Spacer(modifier = Modifier.height(16.dp))
-            Button(onClick = { /* TODO: Handle click here */ }) {
+            Button(onClick = {
+                uriHandler.openUri("https://play.google.com/store/apps/dev?id=4887226526184134400")
+            }) {
                 Text("Google Play Store")
             }
             Spacer(modifier = Modifier.height(8.dp))
-            OutlinedButton(onClick = { /* TODO: Handle click here */ }) {
+            Button(onClick = {
+                uriHandler.openUri("https://play.google.com/store/apps/dev?id=4887226526184134400")
+            }) {
                 Text("Rate App")
             }
             Spacer(modifier = Modifier.height(24.dp))
@@ -61,7 +72,14 @@ fun MainScreen() {
             Text(
                 text = "Please contact us at: ArtistryTimeStudios@gmail.com",
                 style = MaterialTheme.typography.bodySmall,
-                modifier = Modifier.clickable { /* TODO: Add email intent */ },
+                modifier = Modifier.clickable {
+                    val emailIntent = Intent(Intent.ACTION_SENDTO).apply {
+                        data = Uri.parse("mailto:ArtistryTimeStudios@gmail.com") // only email apps should handle this
+                        putExtra(Intent.EXTRA_EMAIL, arrayOf("ArtistryTimeStudios@gmail.com"))
+                        putExtra(Intent.EXTRA_SUBJECT, "Your subject here")
+                    }
+                    context.startActivity(Intent.createChooser(emailIntent, "Send email..."))
+                },
                 textAlign = TextAlign.Center
             )
             Spacer(modifier = Modifier.height(16.dp))
@@ -70,9 +88,13 @@ fun MainScreen() {
             Text(
                 text = "Installation Guide",
                 style = MaterialTheme.typography.bodyLarge,
-                modifier = Modifier.clickable { /* TODO: Handle click here */ },
+                modifier = Modifier.clickable {
+                    // Replace with the actual URL of your installation guide
+                    uriHandler.openUri("https://tinyurl.com/4p9rcmww")
+                },
                 textAlign = TextAlign.Center
             )
+
         }
     }
 }
