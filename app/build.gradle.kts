@@ -5,7 +5,7 @@ plugins {
 
 android {
     namespace = "com.artistrytimestudios.f03"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.artistrytimestudios.f03"
